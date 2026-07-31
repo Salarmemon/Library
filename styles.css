@@ -25,3 +25,27 @@ h1 {
     font-size: clamp(1.4rem, 2.5vw, 3.5rem);
 
 }
+
+#add-btn {
+    width:150px;
+    height: 60px;
+    font-size: clamp(1rem, 1.5vw, 2rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: aqua;
+    border-radius: 10px;
+    margin:20px auto;
+    border: 1px solid #eee;
+    box-shadow: 1px 1px 1px gray;
+    cursor: pointer;
+    
+}
+.plus-span {
+    font-size: clamp(3rem, 4vw, 6rem);
+}
+#add-btn:hover {
+    background-color: aquamarine;
+    transform: scale(1.05);
+}
