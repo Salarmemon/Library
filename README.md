@@ -1,0 +1,1 @@
+This is my project for odin project's JavaScript course
