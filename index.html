@@ -13,6 +13,25 @@
     </header>
     <main>
         <button id="add-btn"><span class="plus-span">+</span> <span class="add-span">Add</span></button>
+        <form action="" id="book-form" class="hidden">
+            <label for="author">Author</label>
+            <br>
+            <input type="text" id="author" name="author" required>
+            <br>
+            <label for="title">Title</label>
+            <br>
+            <input type="text" name="title" id="title" required>
+            <br>
+            <label for="num-of-pages">Number of pages</label>
+            <br>
+            <input type="number" name="num-of-pages" id="num-of-pages">
+            <br>
+            <input type="checkbox" name="is-read" id="is-read">
+            
+            <label for="is-read">I have read this book</label>
+            <br>
+            <button type="submit" id="submit-btn">Add Book</button>
+        </form>
     </main>
     <script src="main.js"></script>
 </body>

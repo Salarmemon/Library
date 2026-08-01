@@ -49,3 +49,38 @@ h1 {
     background-color: aquamarine;
     transform: scale(1.05);
 }
+
+.hidden {
+    display: none;
+}
+
+#book-form {
+    margin: 20px auto;
+    background-color: rgb(100, 250, 250);
+    width: max(50%, 200px);
+    padding: 10px;
+}
+
+input[type=text], input[type=number] {
+    margin-bottom: 15px;
+    width: max(75%, 150px);
+    height: 40px;
+}
+
+#submit-btn {
+    margin: 10px auto;
+    display: block;
+    width: 100px;
+    height: 40px;
+    background-color: aquamarine;
+    border: 1px solid #eee;
+    box-shadow: 1px 1px 1px gray;
+    border-radius: 10px;
+    font-size: clamp(0.8rem, 1.4vw, 2rem);
+}
+
+#submit-btn:hover {
+    background-color: aqua;
+    transform: scale(1.05);
+
+}
