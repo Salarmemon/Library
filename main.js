@@ -1,3 +1,34 @@
+
+
+const getElm = (value, method) => {
+    let element;
+    if (method === "id") {
+        element = document.getElementById(value);
+    } else if (method === "class") {
+        element = document.getElementsByClassName(value);
+    } else if (method === "query") {
+        element = document.querySelector(value);
+    } else {
+        console.log("Unsupported method of fetching an element");
+        return
+    }
+
+    if (!element) {
+        console.log("Error fetching the element");
+        return
+    }
+
+    return element;
+}
+
+
+const addBtn = getElm("add-btn", "id");
+const bookForm = getElm("book-form", "id");
+const authorInput = getElm("author", "id");
+const titleInput = getElm("title", "id");
+const numOfPagesInput = getElm("num-of-pages", "id");
+const booksGrid = getElm("books-grid", "id");
+
 function Books(title, author, numOfPages, isRead) {
     this.id = crypto.randomUUID();
     this.title = title;
@@ -16,4 +47,35 @@ function createAndAddBook(title, author, numOfPages, isRead) {
     const book = new Books(title, author, numOfPages, isRead);
     library.push(book);
 }
+
+addBtn.addEventListener("click", () => {
+
+    bookForm.classList.toggle("hidden");
+
+})
+
+bookForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const author = authorInput.value;
+    const title = titleInput.value;
+    const numOfPages = numOfPagesInput.value;
+
+    createAndAddBook(author, title, numOfPages);
+    bookForm.classList.add("hidden");
+    
+    const booksHTML = library.map(book => {
+        return `<div class="book">
+            <p class="book-title">Name: ${book.title}</p>
+            <p class="book-author">Author: ${book.author}</p>
+            <p class="book-num-of-pages"># Of Pages: ${book.numOfPages}</p>
+
+            
+        </div>`
+        
+    })
+
+    booksGrid.innerHTML = booksHTML;
+    console.log(library)
+
+})
 
