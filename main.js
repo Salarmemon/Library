@@ -28,13 +28,14 @@ const authorInput = getElm("author", "id");
 const titleInput = getElm("title", "id");
 const numOfPagesInput = getElm("num-of-pages", "id");
 const booksGrid = getElm("books-grid", "id");
+const readInput = getElm("is-read", "id");
 
 function Books(title, author, numOfPages, isRead) {
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
     this.numOfPages = numOfPages;
-    this.author.isRead = isRead;
+    this.isRead = isRead;
 
     function info() {
         console.log(`${this.title} by ${this.author}, ${this.numOfPages} pages, ${this.isRead ? "read" : "not read yet"}`)
@@ -59,8 +60,8 @@ bookForm.addEventListener("submit", (e) => {
     const author = authorInput.value;
     const title = titleInput.value;
     const numOfPages = numOfPagesInput.value;
-
-    createAndAddBook(author, title, numOfPages);
+    const checked = readInput.checked;
+    createAndAddBook(title,  author, numOfPages, checked);
     bookForm.classList.add("hidden");
     
     const booksHTML = library.map(book => {
@@ -68,14 +69,14 @@ bookForm.addEventListener("submit", (e) => {
             <p class="book-title">Name: ${book.title}</p>
             <p class="book-author">Author: ${book.author}</p>
             <p class="book-num-of-pages"># Of Pages: ${book.numOfPages}</p>
-
-            
+            <button class="read-indicator ${book.isRead ? "read" : "not-read"}">${book.isRead ? "Read" : "Not Read"}</button>
+            <button class="remove">Remove</button>            
         </div>`
         
     })
 
-    booksGrid.innerHTML = booksHTML;
-    console.log(library)
+    booksGrid.innerHTML = booksHTML.join("");
+
 
 })
 
