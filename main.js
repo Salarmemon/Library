@@ -30,22 +30,30 @@ const numOfPagesInput = getElm("num-of-pages", "id");
 const booksGrid = getElm("books-grid", "id");
 const readInput = getElm("is-read", "id");
 
-function Books(title, author, numOfPages, isRead) {
+function Book(title, author, numOfPages, isRead) {
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
     this.numOfPages = numOfPages;
     this.isRead = isRead;
 
-    function info() {
+}
+
+
+ Book.prototype.info =  function () {
         console.log(`${this.title} by ${this.author}, ${this.numOfPages} pages, ${this.isRead ? "read" : "not read yet"}`)
     }
-}
+Book.prototype.toggleRead = function () {
+        this.isRead = !this.isRead;
+
+        
+    }
 
 const library = [];
 
 function createAndAddBook(title, author, numOfPages, isRead) {
-    const book = new Books(title, author, numOfPages, isRead);
+    const book = new Book(title, author, numOfPages, isRead);
+   
     library.push(book);
 }
 
@@ -55,17 +63,9 @@ addBtn.addEventListener("click", () => {
 
 })
 
-bookForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const author = authorInput.value;
-    const title = titleInput.value;
-    const numOfPages = numOfPagesInput.value;
-    const checked = readInput.checked;
-    createAndAddBook(title,  author, numOfPages, checked);
-    bookForm.classList.add("hidden");
-    
+function displayBooks() {
     const booksHTML = library.map(book => {
-        return `<div class="book">
+        return `<div class="book" data-id="${book.id}">
             <p class="book-title">Name: ${book.title}</p>
             <p class="book-author">Author: ${book.author}</p>
             <p class="book-num-of-pages"># Of Pages: ${book.numOfPages}</p>
@@ -77,6 +77,33 @@ bookForm.addEventListener("submit", (e) => {
 
     booksGrid.innerHTML = booksHTML.join("");
 
+}
+
+bookForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const author = authorInput.value;
+    const title = titleInput.value;
+    const numOfPages = numOfPagesInput.value;
+    const checked = readInput.checked;
+    createAndAddBook(title,  author, numOfPages, checked);
+    bookForm.classList.add("hidden");
+    displayBooks();
+    
 
 })
 
+booksGrid.addEventListener("click", (e) => {
+    if (e.target.classList.contains("remove") ) {
+        const bookId = e.target.closest(".book").dataset.id;
+        const index = library.findIndex(book => book.id === bookId);
+        library.splice(index, 1);
+        displayBooks();
+    }
+
+    if (e.target.classList.contains("read-indicator")) {
+        const bookId = e.target.closest(".book").dataset.id;
+        const book = library.find(b => b.id === bookId);
+        book.toggleRead();
+        displayBooks();
+    }
+})
