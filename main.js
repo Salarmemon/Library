@@ -87,6 +87,7 @@ bookForm.addEventListener("submit", (e) => {
     const checked = readInput.checked;
     createAndAddBook(title,  author, numOfPages, checked);
     bookForm.classList.add("hidden");
+    console.log(bookForm.classList);
     displayBooks();
     
 
